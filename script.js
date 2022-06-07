@@ -10,12 +10,12 @@ By the end of the lab, all tests in the report should be passing.
 */
 
 const studentInformation = {
-  name: "FILL_IN_YOUR_NAME_HERE",
-  grade: "FILL_IN_YOUR_GRADE_HERE",
-  advisor: "FILL_IN_YOUR_ADVISOR_HERE",
-  major: "FILL_IN_YOUR_MAJOR_HERE",
-  graduationYear: "FILL_IN_YOUR_GRADUATION_YEAR_HERE",
-  imageUrl: "ADD_A_URL_TO_ANY_IMAGE_HERE",
+  name: "Deland",
+  grade: "A+",
+  advisor: "Samantha",
+  major: "Computer Science",
+  graduationYear: "2014",
+  imageUrl: "cat.jpg",
 }
 
 let semester = "Spring Semester"
@@ -58,7 +58,17 @@ const gpaPointsLookup = {
 /**
  * QUERY SELECTORS VARIABLES GO HERE
  */
-const dropdownEl = document.querySelector(".dropdown")
+const studentNameElement = document.querySelector("#student-name");
+const studentAdvisorElement = document.querySelector("#student-advisor");
+const studentGradeLevelElement = document.querySelector("#student-grade-level");
+const studentMajorElement = document.querySelector("#student-major");
+const studentGraduationYearElement = document.querySelector("#student-graduation-year");
+const studentImageElement = document.querySelector("#student-image");
+const semesterDropdownElement = document.querySelector(".semester-dropdown");
+const semesterDropdownButtonElement = document.querySelector(".dropdown-button");
+const semesterDropdownLabelElement = document.querySelector(".dropdown-label");
+const reportCardTableElement = document.querySelector("#report-card-table");
+
 // ADD more query selectors here
 
 /**
@@ -72,6 +82,7 @@ const dropdownEl = document.querySelector(".dropdown")
  */
 function updateStudentName(studentName) {
   // code goes here
+  studentNameElement.innerHTML = studentName;
 }
 
 /**
@@ -81,6 +92,7 @@ function updateStudentName(studentName) {
  */
 function updateStudentGradeLevel(studentGradeLevel) {
   // code goes here
+  studentGradeLevelElement.innerHTML = gpaPointsLookup[studentGradeLevel];
 }
 
 /**
@@ -90,6 +102,7 @@ function updateStudentGradeLevel(studentGradeLevel) {
  */
 function updateStudentAdvisor(studentAdvisor) {
   // code goes here
+  studentAdvisorElement.innerHTML = studentAdvisor;
 }
 
 /**
@@ -99,6 +112,7 @@ function updateStudentAdvisor(studentAdvisor) {
  */
 function updateMajor(studentMajor) {
   // code goes here
+  studentMajorElement.innerHTML = studentMajor;
 }
 
 /**
@@ -108,6 +122,7 @@ function updateMajor(studentMajor) {
  */
 function updateStudentGraduationYear(graduationYear) {
   // code goes here
+  studentGraduationYearElement.innerHTML = graduationYear;
 }
 
 /**
@@ -118,6 +133,7 @@ function updateStudentGraduationYear(graduationYear) {
  */
 function updateStudentImage(imageUrl) {
   // code goes here
+  studentImageElement.src = imageUrl;
 }
 
 /**
@@ -271,4 +287,5 @@ function calculateSemesterGpa(reportCardTableElement) {
 
 window.onload = function () {
   // execute your functions here to make sure they run as soon as the page loads
+  populateStudentInfo;
 }
