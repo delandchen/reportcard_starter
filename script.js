@@ -68,9 +68,11 @@ const dropdownElement = document.querySelector(".dropdown");
 const dropdownButtonElement = document.querySelector(".dropdown-button");
 const dropdownLabelElement = document.querySelector(".dropdown-label");
 const reportCardTableElement = document.querySelector("#report-card-table");
-const fallSemesterElement = document.querySelector("#fall-semester")
-const springSemesterElement = document.querySelector("#spring-semester")
-const winterTermElement = document.querySelector("#winter-term")
+const fallSemesterElement = document.querySelector("#fall-semester");
+const springSemesterElement = document.querySelector("#spring-semester");
+const winterTermElement = document.querySelector("#winter-term");
+const totalCreditsElement = document.querySelector("#total-credits");
+const gpaElement = document.querySelector("#gpa");
 
 // ADD more query selectors here
 
@@ -194,12 +196,12 @@ function addCourseRowToReportCard(reportCardTableElement, course, rowNum) {
 /**
  * This function should add HTML for the totals row in the report card.
  */
-function addTotalsRow(reportCardTableElement) {
+function addTotalsRow(reportCardTableElement, totalCredits) {
   reportCardTableElement.innerHTML += `<div class="table-row totals even">
   <h4 class="code-col"></h4>
   <h4 class="name-col"></h4>
   <h4 class="sem-col">Totals:</h4>
-  <h4 id="total-credits" class="cred-col"> ? credits </h4>
+  <h4 id="total-credits" class="cred-col"> ${totalCredits} credits </h4>
   <h4 class="lett-col"></h4>
   <h4 id="total-pts" class="pts-col">?</h4>
 </div>`
@@ -208,14 +210,14 @@ function addTotalsRow(reportCardTableElement) {
 /**
  * This function should add HTML for the final row in the report card.
  */
-function addGpaRow(reportCardTableElement) {
+function addGpaRow(reportCardTableElement, gpa) {
   reportCardTableElement.innerHTML += `<div class="table-row gpa odd">
   <h4 class="code-col"></h4>
   <h4 class="name-col"></h4>
   <h4 class="sem-col">GPA:</h4>
   <h4 class="cred-col"></h4>
   <h4 class="lett-col"></h4>
-  <h4 id="gpa" class="pts-col"> ?</h4>               
+  <h4 id="gpa" class="pts-col"> ${gpa} </h4>               
 </div>`
 }
 
@@ -233,9 +235,13 @@ function updateReportCard(reportCardTableElement, currentSemester) {
 
   // add your code here
   addReportCardHeaders(reportCardTableElement);
-  studentData[currentSemester].forEach((obj, index) => { addCourseRowToReportCard(reportCardTableElement, obj, index); });
+  studentData[currentSemester].forEach((obj, index) => {
+    addCourseRowToReportCard(reportCardTableElement, obj, index);
+  });
   addTotalsRow(reportCardTableElement);
   addGpaRow(reportCardTableElement);
+  addUpStudentCredits();
+  calculateSemesterGpa();
 }
 
 /**
@@ -318,8 +324,17 @@ function addEventListeners(
  * before updating the DOM.
  *
  */
-function addUpStudentCredits(reportCardTableElement) {
+
+function addUpStudentCredits() {
   // code goes here
+  let sum = 0;
+  let items = document.getElementsByClassName("credit");
+
+  for (let i = 0; i < items.length; i++) {
+    sum += parseInt(items[i].innerHTML);
+  }
+
+  totalCreditsElement.innerHTML = toString(sum);
 }
 
 /**
@@ -335,8 +350,18 @@ function addUpStudentCredits(reportCardTableElement) {
  *
  */
 
-function calculateSemesterGpa(reportCardTableElement) {
+function calculateSemesterGpa() {
   // code goes here
+  let sum = 0;
+  let index = 0;
+  let items = document.getElementsByClassName("lett-col gpa");
+
+  for (let i = 0; i < items.length; i++) {
+    sum += gpaPointsLookup[items[i].innerHTML];
+    index += 1;
+  }
+
+  gpaElement.innerHTML = toString(sum / index);
 }
 
 window.onload = function () {
